@@ -121,7 +121,7 @@ namespace Clock
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
 				switch((sender as ToolStripMenuItem).Text) // as - это оператор перобразования типов 
-													// Оператор as значение слева приводит к типу данных справа 
+										 // Оператор as значение слева приводит к типу данных справа 
 				{
 					case "BackGround color": labelTime.BackColor = dialog.Color; break;
 					case "Foreground color": labelTime.ForeColor = dialog.Color; break;

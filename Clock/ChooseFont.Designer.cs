@@ -47,6 +47,7 @@
 			this.cbFonts.Name = "cbFonts";
 			this.cbFonts.Size = new System.Drawing.Size(358, 21);
 			this.cbFonts.TabIndex = 0;
+			this.cbFonts.SelectedIndexChanged += new System.EventHandler(this.cbFonts_SelectedIndexChanged);
 			// 
 			// nudFonstSize
 			// 
@@ -98,6 +99,7 @@
 			this.btnOK.TabIndex = 5;
 			this.btnOK.Text = "Ok";
 			this.btnOK.UseVisualStyleBackColor = true;
+			this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
 			// 
 			// btnCancel
 			// 
@@ -113,7 +115,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(449, 276);
+			this.ClientSize = new System.Drawing.Size(445, 271);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnOK);
 			this.Controls.Add(this.labelExample);

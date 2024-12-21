@@ -14,16 +14,26 @@ namespace Clock
 {
 	public partial class ChooseFontForm : Form
 	{
-		override public Font Font {  get; set; }
+		public Font Font {  get; set; }
+		public string File_Name { get; set; }
 		public ChooseFontForm()
 		{
 			InitializeComponent();
 			LoadFonts();
 			cbFonts.SelectedIndex = 0;
 		}
+		public ChooseFontForm(string Font_Name, int  Font_Size)
+		{
+			InitializeComponent();
+			File_Name = Font_Name;
+			nudFonstSize.Value = Font_Size;
+			LoadFonts();
+			cbFonts.SelectedIndex = cbFonts.Items.IndexOf(File_Name);
+			Font = labelExample.Font;
+		}
 		void LoadFonts()
 		{
-			Directory.SetCurrentDirectory("..\\..\\Font");
+			//Directory.SetCurrentDirectory("..\\..\\Font");
             Console.WriteLine(Directory.GetCurrentDirectory());
 
 				cbFonts.Items.AddRange(GetFontsFromat("*.ttf"));
@@ -42,6 +52,7 @@ namespace Clock
 		{
 			cbFonts_SelectedIndexChanged(sender, e);
 			Font = labelExample.Font;
+			File_Name = cbFonts.SelectedItem.ToString();
 		}
 
 		private void cbFonts_SelectedIndexChanged(object sender, EventArgs e)

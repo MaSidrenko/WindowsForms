@@ -14,7 +14,7 @@ namespace Clock
 {
 	public partial class ChooseFontForm : Form
 	{
-		public Font Font {  get; set; }
+		override public Font Font {  get; set; }
 		public ChooseFontForm()
 		{
 			InitializeComponent();
@@ -40,6 +40,7 @@ namespace Clock
 		}
 		private void btnOK_Click(object sender, EventArgs e)
 		{
+			cbFonts_SelectedIndexChanged(sender, e);
 			Font = labelExample.Font;
 		}
 
@@ -50,6 +51,11 @@ namespace Clock
             //Console.WriteLine(full_name);
 			pfc.AddFontFile(full_name);
 			labelExample.Font = new Font(pfc.Families[0], Convert.ToInt32(nudFonstSize.Value));
+		}
+
+		private void btnApply_Click(object sender, EventArgs e)
+		{
+			cbFonts_SelectedIndexChanged(sender, e);
 		}
 	}
 }

@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
+using Microsoft.Win32;
 
 
 namespace Clock
@@ -55,11 +57,13 @@ namespace Clock
 			sw.WriteLine(fontDialog.File_Name);
 			sw.WriteLine(labelTime.Font.Size);
 			sw.Close();
-			//Process.Start("notepad", "Settings.ini");
+			Process.Start("notepad", "Settings.ini");
 		}
 		void LoadSettings()
 		{
-			Directory.SetCurrentDirectory("..\\..\\Font");
+
+			string execution_path = Path.GetDirectoryName(Application.ExecutablePath);
+			Directory.SetCurrentDirectory(execution_path + "\\..\\..\\Font");
 			StreamReader sr = new StreamReader("Settings.ini");
 			cmTopmost.Checked = bool.Parse(sr.ReadLine());
 			cmShowContorls.Checked = bool.Parse(sr.ReadLine());
@@ -177,15 +181,26 @@ namespace Clock
 				FreeConsole();
 		}
 
-		[DllImport("kernel32.dll")]
-		public static extern bool AllocConsole();
-		[DllImport("kernel32.dll")]
-		public static extern bool FreeConsole();
+		
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			SaveSettings();
 		}
-		
+
+		private void cmLoadOnWinStartup_CheckedChanged(object sender, EventArgs e)
+		{
+			string key_name = "ClockPV_319";
+			RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true); //true - откроет ветку на запись 
+			if (cmLoadOnWinStartup.Checked)
+				rk.SetValue(key_name, Application.ExecutablePath);
+			else
+				rk.DeleteValue(key_name, false);
+			rk.Dispose();
+		}
+		[DllImport("kernel32.dll")]
+		public static extern bool AllocConsole();
+		[DllImport("kernel32.dll")]
+		public static extern bool FreeConsole();
 	}
 }

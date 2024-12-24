@@ -57,7 +57,7 @@ namespace Clock
 			sw.WriteLine(fontDialog.File_Name);
 			sw.WriteLine(labelTime.Font.Size);
 			sw.Close();
-			Process.Start("notepad", "Settings.ini");
+			//Process.Start("notepad", "Settings.ini");
 		}
 		void LoadSettings()
 		{
@@ -75,7 +75,7 @@ namespace Clock
 			string Font_Name = sr.ReadLine();
 			int Font_Size = (int)Convert.ToDouble(sr.ReadLine());
 			sr.Close();
-			fontDialog = new ChooseFontForm(Font_Name, Font_Size);
+			fontDialog = new ChooseFontForm(this, Font_Name, Font_Size);
 			labelTime.Font = fontDialog.Font;
 		}
 		private void timer_Tick(object sender, EventArgs e)
@@ -151,6 +151,7 @@ namespace Clock
 		private void SetColor(object sender, EventArgs e)
 		{
 			ColorDialog dialog = new ColorDialog();
+			dialog.
 			switch (((ToolStripMenuItem)sender).Text)
 			{
 				case "BackGround color": dialog.Color = labelTime.BackColor; break;
@@ -180,8 +181,6 @@ namespace Clock
 			else
 				FreeConsole();
 		}
-
-		
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{

@@ -14,7 +14,7 @@ namespace Clock
 {
 	public partial class ChooseFontForm : Form
 	{
-		public Font Font {  get; set; }
+		public Font Font { get; set; }
 		public string File_Name { get; set; }
 		public ChooseFontForm()
 		{
@@ -22,9 +22,14 @@ namespace Clock
 			LoadFonts();
 			cbFonts.SelectedIndex = 0;
 		}
-		public ChooseFontForm(string Font_Name, int  Font_Size)
+		public ChooseFontForm(MainForm paranet, string Font_Name, int Font_Size)
 		{
 			InitializeComponent();
+			this.Location = new Point
+			(
+				Screen.PrimaryScreen.Bounds.Width - paranet.Width - this.Width ,
+				paranet.Location.Y*2
+			);
 			File_Name = Font_Name;
 			nudFonstSize.Value = Font_Size;
 			LoadFonts();
@@ -34,10 +39,10 @@ namespace Clock
 		void LoadFonts()
 		{
 			//Directory.SetCurrentDirectory("..\\..\\Font");
-            Console.WriteLine(Directory.GetCurrentDirectory());
+			Console.WriteLine(Directory.GetCurrentDirectory());
 
-				cbFonts.Items.AddRange(GetFontsFromat("*.ttf"));
-				cbFonts.Items.AddRange(GetFontsFromat("*.otf"));
+			cbFonts.Items.AddRange(GetFontsFromat("*.ttf"));
+			cbFonts.Items.AddRange(GetFontsFromat("*.otf"));
 		}
 		static string[] GetFontsFromat(string format)
 		{
@@ -59,7 +64,7 @@ namespace Clock
 		{
 			PrivateFontCollection pfc = new PrivateFontCollection();
 			string full_name = Directory.GetCurrentDirectory() + "\\" + cbFonts.SelectedItem;
-            //Console.WriteLine(full_name);
+			//Console.WriteLine(full_name);
 			pfc.AddFontFile(full_name);
 			labelExample.Font = new Font(pfc.Families[0], Convert.ToInt32(nudFonstSize.Value));
 		}

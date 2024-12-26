@@ -20,20 +20,23 @@ namespace Clock
 	public partial class MainForm : Form
 	{
 		ChooseFontForm fontDialog = null;
+		AlarmsForm alarmsDialog = null;
 		public MainForm()
 		{
+			//System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("fr");
 			InitializeComponent();
 			labelTime.BackColor = Color.Black;
 			labelTime.ForeColor = Color.DarkGreen;
 
 
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
-	
+
 			SetVisibility(false);
 			cmShowConsole.Checked = true;
 			cmTopmost.Checked = true;
 			LoadSettings();
 			//fontDialog = new ChooseFontForm();
+			alarmsDialog = new AlarmsForm();
 		}
 		void SetVisibility(bool visible)
 		{
@@ -86,19 +89,19 @@ namespace Clock
 				labelTime.Text += "\n";
 				labelTime.Text += DateTime.Now.Date.ToString("yyyy.MM.dd");
 			}
-			if(cbShowWeekDay.Checked)
+			if (cbShowWeekDay.Checked)
 			{
 				labelTime.Text += "\n";
 				labelTime.Text += DateTime.Now.DayOfWeek;
 			}
 			notifyIcon.Text = labelTime.Text;
 		}
-		
+
 		private void btnHideControls_Click(object sender, EventArgs e)
 		{
-			SetVisibility(cmShowContorls.Checked =  false);
+			SetVisibility(cmShowContorls.Checked = false);
 		}
-		
+
 		private void labelTime_DoubleClick(object sender, EventArgs e)
 		{
 			SetVisibility(cmShowContorls.Checked = true);
@@ -106,7 +109,7 @@ namespace Clock
 
 		private void cmExit_Click(object sender, EventArgs e)
 		{
-			this.Close();	
+			this.Close();
 		}
 
 		private void cmTopmost_CheckedChanged(object sender, EventArgs e)
@@ -136,7 +139,7 @@ namespace Clock
 
 		private void notifyIcon_DoubleClick(object sender, EventArgs e)
 		{
-			if(!this.TopMost)
+			if (!this.TopMost)
 			{
 				this.TopMost = true;
 				this.TopMost = false;
@@ -151,7 +154,7 @@ namespace Clock
 		private void SetColor(object sender, EventArgs e)
 		{
 			ColorDialog dialog = new ColorDialog();
-			dialog.
+			//dialog.
 			switch (((ToolStripMenuItem)sender).Text)
 			{
 				case "BackGround color": dialog.Color = labelTime.BackColor; break;
@@ -159,8 +162,8 @@ namespace Clock
 			}
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				switch((sender as ToolStripMenuItem).Text) // as - это оператор перобразования типов 
-										 // Оператор as значение слева приводит к типу данных справа 
+				switch ((sender as ToolStripMenuItem).Text) // as - это оператор перобразования типов 
+															// Оператор as значение слева приводит к типу данных справа 
 				{
 					case "BackGround color": labelTime.BackColor = dialog.Color; break;
 					case "Foreground color": labelTime.ForeColor = dialog.Color; break;
@@ -170,7 +173,7 @@ namespace Clock
 
 		private void chooseFontToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if(fontDialog.ShowDialog() == DialogResult.OK)
+			if (fontDialog.ShowDialog() == DialogResult.OK)
 				labelTime.Font = fontDialog.Font;
 		}
 
@@ -197,9 +200,21 @@ namespace Clock
 				rk.DeleteValue(key_name, false);
 			rk.Dispose();
 		}
+		private void cmAlarms_Click(object sender, EventArgs e)
+		{
+			alarmsDialog.StartPosition = FormStartPosition.Manual;
+			alarmsDialog.Location = new Point
+			(
+				this.Location.X - alarmsDialog.Width,
+				this.Location.Y
+			);
+			alarmsDialog.ShowDialog();
+		}
 		[DllImport("kernel32.dll")]
 		public static extern bool AllocConsole();
 		[DllImport("kernel32.dll")]
 		public static extern bool FreeConsole();
+
+
 	}
 }

@@ -34,6 +34,7 @@
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.cmTopmost = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmShowContorls = new System.Windows.Forms.ToolStripMenuItem();
+			this.cmAlarms = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmShowDate = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmShowWeekDay = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,10 +73,11 @@
 			// 
 			this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmTopmost,
-            this.cmShowContorls,
+            this.cmAlarms,
             this.toolStripSeparator1,
             this.cmShowDate,
             this.cmShowWeekDay,
+            this.cmShowContorls,
             this.cmShowConsole,
             this.toolStripSeparator3,
             this.chooseFontToolStripMenuItem,
@@ -85,7 +87,7 @@
             this.toolStripSeparator4,
             this.cmExit});
 			this.contextMenu.Name = "contextMenu";
-			this.contextMenu.Size = new System.Drawing.Size(210, 226);
+			this.contextMenu.Size = new System.Drawing.Size(210, 270);
 			// 
 			// cmTopmost
 			// 
@@ -102,6 +104,13 @@
 			this.cmShowContorls.Size = new System.Drawing.Size(209, 22);
 			this.cmShowContorls.Text = "Show controls";
 			this.cmShowContorls.CheckedChanged += new System.EventHandler(this.cmShowContorls_CheckedChanged);
+			// 
+			// cmAlarms
+			// 
+			this.cmAlarms.Name = "cmAlarms";
+			this.cmAlarms.Size = new System.Drawing.Size(209, 22);
+			this.cmAlarms.Text = "Alarms";
+			this.cmAlarms.Click += new System.EventHandler(this.cmAlarms_Click);
 			// 
 			// toolStripSeparator1
 			// 
@@ -156,14 +165,14 @@
 			// cmBackColor
 			// 
 			this.cmBackColor.Name = "cmBackColor";
-			this.cmBackColor.Size = new System.Drawing.Size(180, 22);
+			this.cmBackColor.Size = new System.Drawing.Size(169, 22);
 			this.cmBackColor.Text = "BackGround color";
 			this.cmBackColor.Click += new System.EventHandler(this.SetColor);
 			// 
 			// cmForeColor
 			// 
 			this.cmForeColor.Name = "cmForeColor";
-			this.cmForeColor.Size = new System.Drawing.Size(180, 22);
+			this.cmForeColor.Size = new System.Drawing.Size(169, 22);
 			this.cmForeColor.Text = "Foreground color";
 			this.cmForeColor.Click += new System.EventHandler(this.SetColor);
 			// 
@@ -285,6 +294,7 @@
 		private System.Windows.Forms.ToolStripMenuItem cmShowConsole;
 		private System.Windows.Forms.ToolStripMenuItem cmLoadOnWinStartup;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+		private System.Windows.Forms.ToolStripMenuItem cmAlarms;
 	}
 }
 

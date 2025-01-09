@@ -95,6 +95,7 @@ namespace Clock
 				labelTime.Text += DateTime.Now.DayOfWeek;
 			}
 			notifyIcon.Text = labelTime.Text;
+			
 		}
 
 		private void btnHideControls_Click(object sender, EventArgs e)
@@ -214,7 +215,5 @@ namespace Clock
 		public static extern bool AllocConsole();
 		[DllImport("kernel32.dll")]
 		public static extern bool FreeConsole();
-
-
 	}
 }

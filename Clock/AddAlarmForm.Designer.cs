@@ -38,7 +38,6 @@
 			this.clbWeekDays = new System.Windows.Forms.CheckedListBox();
 			this.rtbMsg = new System.Windows.Forms.RichTextBox();
 			this.lblMsg = new System.Windows.Forms.Label();
-			this.cbCallOnce = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// cbUseDate
@@ -152,25 +151,11 @@
 			this.lblMsg.TabIndex = 9;
 			this.lblMsg.Text = "Input Message";
 			// 
-			// cbCallOnce
-			// 
-			this.cbCallOnce.AutoSize = true;
-			this.cbCallOnce.Checked = true;
-			this.cbCallOnce.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbCallOnce.Location = new System.Drawing.Point(233, 109);
-			this.cbCallOnce.Name = "cbCallOnce";
-			this.cbCallOnce.Size = new System.Drawing.Size(145, 17);
-			this.cbCallOnce.TabIndex = 10;
-			this.cbCallOnce.Text = "Call several times a week";
-			this.cbCallOnce.UseVisualStyleBackColor = true;
-			this.cbCallOnce.CheckedChanged += new System.EventHandler(this.cbCallOnce_CheckedChanged);
-			// 
 			// AddAlarmForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(390, 259);
-			this.Controls.Add(this.cbCallOnce);
 			this.Controls.Add(this.lblMsg);
 			this.Controls.Add(this.rtbMsg);
 			this.Controls.Add(this.clbWeekDays);
@@ -201,6 +186,5 @@
 		private System.Windows.Forms.CheckedListBox clbWeekDays;
 		private System.Windows.Forms.RichTextBox rtbMsg;
 		private System.Windows.Forms.Label lblMsg;
-		private System.Windows.Forms.CheckBox cbCallOnce;
 	}
 }

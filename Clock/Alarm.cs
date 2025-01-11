@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +20,24 @@ namespace Clock
 		public Alarm()
 		{
 
+		}
+		public Alarm(DateTime date, TimeSpan time, Week weekdays, string filename, string msg)
+		{
+			this.Date = date;
+			this.Time = time;
+			this.Weekdays = weekdays;
+			this.Filename = filename;
+			this.Msg = msg;
+            Console.WriteLine("Constructor: " + this.GetHashCode());
+		}
+		public Alarm(Alarm other)
+		{
+			this.Date = other.Date;
+			this.Time = other.Time;
+			this.Weekdays = other.Weekdays;
+			this.Filename = other.Filename;
+			this.Msg = other.Msg;
+            Console.WriteLine("CopyConstrucor: " + this.GetHashCode());
 		}
 		public override string ToString()
 		{
@@ -36,26 +56,6 @@ namespace Clock
 			}
 			return info;
 		}
-		//public static bool operator >(Alarm left, Alarm right)
-		//{
-		//	if (left.Date != DateTime.MinValue || right.Date != DateTime.MinValue)
-		//		return
-		//			left.Time > right.Time &&
-		//			(left.Date == DateTime.MinValue ? DateTime.Today : left.Date) >=
-		//			(right.Date == DateTime.MinValue ? DateTime.Today : right.Date);
-		//	else
-		//		return left.Time > right.Time;
-		//}
-		//public static bool operator <(Alarm left, Alarm right)
-		//{
-		//	if (left.Date != DateTime.MinValue || right.Date != DateTime.MinValue)
-		//		return 
-		//			left.Time < right.Time &&
-		//			(left.Date == DateTime.MinValue ? DateTime.Today : left.Date) <=
-		//			(right.Date == DateTime.MinValue ? DateTime.Today : right.Date);
-		//	else
-		//		return left.Time < right.Time;
-		//}
 		public int CompareTo(Alarm other)
 		{
 			return this.Time.CompareTo(other.Time);

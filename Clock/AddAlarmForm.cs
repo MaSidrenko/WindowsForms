@@ -20,8 +20,8 @@ namespace Clock
 		public AddAlarmForm()
 		{
 			InitializeComponent();
-			dtpDate.Enabled = false;
 			Alarm = new Alarm();
+			dtpDate.Enabled = false;
 			openFileDialog = new OpenFileDialog();
 			openFileDialog.Filter = "All sound files (*.mp3, *.wav, *.flac)|*.mp3;*.wav;*.flac|MP-3(*.mp3)|*.mp3|WAV(*.wav)|*.wav|Flac (*.flac)|*.flac";
 		}
@@ -42,7 +42,7 @@ namespace Clock
 				);
 			Alarm.Date = dtpDate.Enabled ? dtpDate.Value : DateTime.MinValue;
 			Alarm.Time = dtpTime.Value.TimeOfDay;
-			Alarm.Weekdays = clbWeekDays.Enabled ? week : null;
+			Alarm.Weekdays = week;
 			Alarm.Filename = lblAlarmFile.Text;
 			Alarm.Msg = rtbMsg.Text;
 			if (Alarm.Filename == "File:")
@@ -58,18 +58,12 @@ namespace Clock
 					);
 			}
 		}
-
 		private void btnFile_Click(object sender, EventArgs e)
 		{
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				lblAlarmFile.Text = openFileDialog.FileName;
 			}
-		}
-
-		private void cbCallOnce_CheckedChanged(object sender, EventArgs e)
-		{
-			clbWeekDays.Enabled = cbCallOnce.Checked;
 		}
 	}
 

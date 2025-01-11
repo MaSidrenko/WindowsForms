@@ -82,6 +82,11 @@ namespace Clock
 			fontDialog = new ChooseFontForm(this, Font_Name, Font_Size);
 			labelTime.Font = fontDialog.Font;
 		}
+		Alarm FindNextAlarm()
+		{
+			Alarm[] actualAlarms = alarmsDialog.lb_Alarms.Items.Cast<Alarm>().Where(a => a.Time > DateTime.Now.TimeOfDay).ToArray();
+			return actualAlarms.Min();
+		}
 		private void timer_Tick(object sender, EventArgs e)
 		{
 			labelTime.Text = DateTime.Now.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
@@ -99,7 +104,8 @@ namespace Clock
 
 			if (alarmsDialog.lb_Alarms.Items.Count > 0)
 			{
-				nextAlarm = alarmsDialog.lb_Alarms.Items.Cast<Alarm>().ToArray().Min();
+				//nextAlarm = alarmsDialog.lb_Alarms.Items.Cast<Alarm>().ToArray().Min();
+				nextAlarm = FindNextAlarm();
 			}
 			if (nextAlarm != null) Console.WriteLine(nextAlarm);
 		}

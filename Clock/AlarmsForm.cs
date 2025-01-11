@@ -48,7 +48,7 @@ namespace Clock
 			DialogResult result = addAlarmDialog.ShowDialog();
 			if (result == DialogResult.OK)
 			{
-				lbAlarms.Items.Add(addAlarmDialog.Alarm);
+				lbAlarms.Items.Add(new Alarm(addAlarmDialog.Alarm));
 			}
 		}
 

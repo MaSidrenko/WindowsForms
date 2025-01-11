@@ -39,7 +39,7 @@ namespace Clock
 					weekdays += WeekDays[i] + ",";
 			}
 			
-			return weekdays.Remove(weekdays.Length - 1, 1); ;
+			return weekdays; 
 		}
 	}
 }

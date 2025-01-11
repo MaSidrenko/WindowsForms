@@ -21,6 +21,7 @@ namespace Clock
 	{
 		ChooseFontForm fontDialog = null;
 		AlarmsForm alarmsDialog = null;
+		Alarm nextAlarm = null;
 		public MainForm()
 		{
 			//System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("fr");
@@ -95,9 +96,13 @@ namespace Clock
 				labelTime.Text += DateTime.Now.DayOfWeek;
 			}
 			notifyIcon.Text = labelTime.Text;
-			
-		}
 
+			if (alarmsDialog.lb_Alarms.Items.Count > 0)
+			{
+				nextAlarm = alarmsDialog.lb_Alarms.Items.Cast<Alarm>().ToArray().Min();
+			}
+			if (nextAlarm != null) Console.WriteLine(nextAlarm);
+		}
 		private void btnHideControls_Click(object sender, EventArgs e)
 		{
 			SetVisibility(cmShowContorls.Checked = false);

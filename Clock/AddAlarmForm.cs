@@ -45,7 +45,6 @@ namespace Clock
 			Alarm.Weekdays = clbWeekDays.Enabled ? week : null;
 			Alarm.Filename = lblAlarmFile.Text;
 			Alarm.Msg = rtbMsg.Text;
-			//Console.WriteLine(Alarm.Date);
 			if (Alarm.Filename == "File:")
 			{
 				this.DialogResult = DialogResult.None;

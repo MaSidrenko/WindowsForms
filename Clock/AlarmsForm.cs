@@ -24,15 +24,17 @@ namespace Clock
 		Week Week = null;
 		DateTimeFormatInfo formatInfo = null;
 		Audio audio;
+		public ListBox lb_Alarms
+		{
+			get => lbAlarms;
+		}
 		public AlarmsForm()
 		{
 			InitializeComponent();
 			addAlarmDialog = new AddAlarmForm();
 			openFile = new OpenFileDialog();
-			lblAlarm.Visible = false;
 			Week = new Week();
 			formatInfo = new DateTimeFormatInfo();
-
 		}
 
 		private void btnAdd_Click(object sender, EventArgs e)
@@ -52,32 +54,26 @@ namespace Clock
 
 		private void Alarms_Tick(object sender, EventArgs e)
 		{
-			lblAlarm.Text = DateTime.Now.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
-            Console.WriteLine(lbAlarms.Text);
-			if (lbAlarms.Items.Count != 0)
-			{
-				lbAlarms.SetSelected(0, true);
-				string[] alarms = lbAlarms.SelectedItem.ToString().Split('\t');
-				foreach (string alarm in alarms)
-				{
-					Console.WriteLine(alarm);
-				}
-				if (DateTime.Now.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture) == alarms[0] && formatInfo.GetShortestDayName(DateTime.Now.DayOfWeek) == alarms[1])
-				{
-					audio = new Audio(alarms[2]);
-					audio.Play();
-					MessageBox.Show
-						(
-						this,
-						alarms[3] != null ? alarms[3] : "Алярм!",
-						"Warning",
-						MessageBoxButtons.OK,
-						MessageBoxIcon.Warning
-						);
-					lbAlarms.Items.RemoveAt(0);
-				}
-			}
-
+			
+			//if (lbAlarms.Items.Count != 0)
+			//{
+			//	lbAlarms.SetSelected(0, true);
+			//	string[] alarms = lbAlarms.SelectedItem.ToString().Split('\t');
+			//	if (DateTime.Now.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture) == alarms[0] && formatInfo.GetShortestDayName(DateTime.Now.DayOfWeek) == alarms[1])
+			//	{
+			//		audio = new Audio(alarms[2]);
+			//		audio.Play();
+			//		MessageBox.Show
+			//			(
+			//			this,
+			//			alarms[3] != null ? alarms[3] : "Алярм!",
+			//			"Warning",
+			//			MessageBoxButtons.OK,
+			//			MessageBoxIcon.Warning
+			//			);
+			//		lbAlarms.Items.RemoveAt(0);
+			//	}
+			//}
 		}
 	}
 }

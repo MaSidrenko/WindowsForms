@@ -35,7 +35,6 @@
 			this.lbAlarms = new System.Windows.Forms.ListBox();
 			this.btnAdd = new System.Windows.Forms.Button();
 			this.Alarms = new System.Windows.Forms.Timer(this.components);
-			this.lblAlarm = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// btnOK
@@ -81,21 +80,11 @@
 			this.Alarms.Interval = 1000;
 			this.Alarms.Tick += new System.EventHandler(this.Alarms_Tick);
 			// 
-			// lblAlarm
-			// 
-			this.lblAlarm.AutoSize = true;
-			this.lblAlarm.Location = new System.Drawing.Point(428, 214);
-			this.lblAlarm.Name = "lblAlarm";
-			this.lblAlarm.Size = new System.Drawing.Size(32, 13);
-			this.lblAlarm.TabIndex = 5;
-			this.lblAlarm.Text = "alarm";
-			// 
 			// AlarmsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(514, 280);
-			this.Controls.Add(this.lblAlarm);
 			this.Controls.Add(this.btnAdd);
 			this.Controls.Add(this.lbAlarms);
 			this.Controls.Add(this.btnDelAlarm);
@@ -105,7 +94,6 @@
 			this.Name = "AlarmsForm";
 			this.Text = "Alarms";
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -115,6 +103,5 @@
 		private System.Windows.Forms.ListBox lbAlarms;
 		private System.Windows.Forms.Button btnAdd;
 		private System.Windows.Forms.Timer Alarms;
-		private System.Windows.Forms.Label lblAlarm;
 	}
 }

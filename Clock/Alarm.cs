@@ -19,7 +19,7 @@ namespace Clock
 		public string Msg { get; set; }
 		public Alarm()
 		{
-
+			Weekdays = new Week();
 		}
 		public Alarm(DateTime date, TimeSpan time, Week weekdays, string filename, string msg)
 		{

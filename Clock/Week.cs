@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace Clock
 {
@@ -26,8 +27,18 @@ namespace Clock
 			for (byte i = 0; i < days.Length; i++)
 			{
 				//byte day = 1;
-				if(days[i]) week |= (byte)(1 << i);
+				if (days[i]) week |= (byte)(1 << i);
 			}
+		}
+		public bool[] ExtractWeekDays()
+		{
+			bool[] days = new bool[7];
+			for(byte i =0; i < days.Length; i++)
+			{
+				days[i] = (week & (byte)(1 << i)) != 0;	
+				//if(b == 1)days[i] = true;
+			}
+			return days;
 		}
 		public override string ToString()
 		{

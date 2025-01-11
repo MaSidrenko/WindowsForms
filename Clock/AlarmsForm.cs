@@ -54,7 +54,7 @@ namespace Clock
 
 		private void Alarms_Tick(object sender, EventArgs e)
 		{
-			
+
 			//if (lbAlarms.Items.Count != 0)
 			//{
 			//	lbAlarms.SetSelected(0, true);
@@ -74,6 +74,15 @@ namespace Clock
 			//		lbAlarms.Items.RemoveAt(0);
 			//	}
 			//}
+		}
+
+		private void lbAlarms_DoubleClick(object sender, EventArgs e)
+		{
+			addAlarmDialog.Alarm = lbAlarms.SelectedItem as Alarm;
+			if (addAlarmDialog.ShowDialog() == DialogResult.OK)
+			{
+				lbAlarms.Items[lbAlarms.SelectedIndex] = addAlarmDialog.Alarm;
+			}
 		}
 	}
 }

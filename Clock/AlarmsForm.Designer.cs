@@ -55,6 +55,7 @@
 			this.btnDelAlarm.TabIndex = 2;
 			this.btnDelAlarm.Text = "Delete";
 			this.btnDelAlarm.UseVisualStyleBackColor = true;
+			this.btnDelAlarm.Click += new System.EventHandler(this.btnDelAlarm_Click);
 			// 
 			// lbAlarms
 			// 
@@ -64,6 +65,7 @@
 			this.lbAlarms.Size = new System.Drawing.Size(409, 264);
 			this.lbAlarms.TabIndex = 3;
 			this.lbAlarms.DoubleClick += new System.EventHandler(this.lbAlarms_DoubleClick);
+			this.lbAlarms.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbAlarms_KeyDown);
 			// 
 			// btnAdd
 			// 

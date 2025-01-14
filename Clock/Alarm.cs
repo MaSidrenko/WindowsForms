@@ -42,18 +42,15 @@ namespace Clock
 		public override string ToString()
 		{
 			string info = "";
-			info += DateTime.Today.Add(Time).ToString("hh:mm:ss tt");
-			info += "\t";
-			info += Weekdays;
-			info += "\t";
-			info += Filename;
-			info += "\t";
-			info += Msg;
-			info += "\t";
 			if (Date != DateTime.MinValue)
 			{
-				info += Date;
+				info += Date + "\t";
 			}
+			info += DateTime.Today.Add(Time).ToString("hh:mm:ss tt");
+			info += "\t";
+			info += Weekdays + "\t";
+			info += Filename + "\t";
+			info += Msg + "\t";
 			return info;
 		}
 		public int CompareTo(Alarm other)

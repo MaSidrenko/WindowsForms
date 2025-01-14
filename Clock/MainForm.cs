@@ -102,21 +102,21 @@ namespace Clock
 			}
 			notifyIcon.Text = labelTime.Text;
 
-			if (alarmsDialog.lb_Alarms.Items.Count > 0)
+			if
+				(
+					nextAlarm != null &&
+					nextAlarm.Time.Hours == DateTime.Now.Hour &&
+					nextAlarm.Time.Minutes == DateTime.Now.Minute &&
+					nextAlarm.Time.Seconds == DateTime.Now.Second
+				)
+			{
+				System.Threading.Thread.Sleep(1000);
+				MessageBox.Show(this, nextAlarm.ToString(), "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+
+			if (DateTime.Now.Second % 10 == 0 && alarmsDialog.lb_Alarms.Items.Count > 0)
 			{
 				nextAlarm = FindNextAlarm();
-				//string[] alarms = nextAlarm.ToString().Split('\t');
-				//foreach(string alarm in alarms)
-				//{
-				//Console.WriteLine(alarm);
-				//}
-				//Console.WriteLine(DateTime.Now.ToString("dd.MM.yyyy") + "\n" + DateTime.MinValue);
-				//Console.WriteLine(DateTime.Now.TimeOfDay);
-				////while (true)Console.ReadLine();
-				//if ((alarms[0] == DateTime.Now.ToString("dd.MM.yyyy") || alarms[0] == DateTime.MinValue.ToString()) && alarms[1] == DateTime.Now.ToString())
-				//{
-
-				//}
 			}
 			if (nextAlarm != null) Console.WriteLine(nextAlarm);
 		}
@@ -177,7 +177,6 @@ namespace Clock
 		private void SetColor(object sender, EventArgs e)
 		{
 			ColorDialog dialog = new ColorDialog();
-			//dialog.
 			switch (((ToolStripMenuItem)sender).Text)
 			{
 				case "BackGround color": dialog.Color = labelTime.BackColor; break;

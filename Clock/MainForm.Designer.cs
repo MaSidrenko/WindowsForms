@@ -33,11 +33,11 @@
 			this.labelTime = new System.Windows.Forms.Label();
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.cmTopmost = new System.Windows.Forms.ToolStripMenuItem();
-			this.cmShowContorls = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmAlarms = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmShowDate = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmShowWeekDay = new System.Windows.Forms.ToolStripMenuItem();
+			this.cmShowContorls = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmShowConsole = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.chooseFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +53,9 @@
 			this.btnHideControls = new System.Windows.Forms.Button();
 			this.cbShowWeekDay = new System.Windows.Forms.CheckBox();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+			this.axWindowsMediaPlayer = new AxWMPLib.AxWindowsMediaPlayer();
 			this.contextMenu.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// labelTime
@@ -87,7 +89,7 @@
             this.toolStripSeparator4,
             this.cmExit});
 			this.contextMenu.Name = "contextMenu";
-			this.contextMenu.Size = new System.Drawing.Size(210, 270);
+			this.contextMenu.Size = new System.Drawing.Size(210, 248);
 			// 
 			// cmTopmost
 			// 
@@ -96,14 +98,6 @@
 			this.cmTopmost.Size = new System.Drawing.Size(209, 22);
 			this.cmTopmost.Text = "Topmost";
 			this.cmTopmost.CheckedChanged += new System.EventHandler(this.cmTopmost_CheckedChanged);
-			// 
-			// cmShowContorls
-			// 
-			this.cmShowContorls.CheckOnClick = true;
-			this.cmShowContorls.Name = "cmShowContorls";
-			this.cmShowContorls.Size = new System.Drawing.Size(209, 22);
-			this.cmShowContorls.Text = "Show controls";
-			this.cmShowContorls.CheckedChanged += new System.EventHandler(this.cmShowContorls_CheckedChanged);
 			// 
 			// cmAlarms
 			// 
@@ -132,6 +126,14 @@
 			this.cmShowWeekDay.Size = new System.Drawing.Size(209, 22);
 			this.cmShowWeekDay.Text = "Show week day";
 			this.cmShowWeekDay.CheckedChanged += new System.EventHandler(this.cmShowWeekDay_CheckedChanged);
+			// 
+			// cmShowContorls
+			// 
+			this.cmShowContorls.CheckOnClick = true;
+			this.cmShowContorls.Name = "cmShowContorls";
+			this.cmShowContorls.Size = new System.Drawing.Size(209, 22);
+			this.cmShowContorls.Text = "Show controls";
+			this.cmShowContorls.CheckedChanged += new System.EventHandler(this.cmShowContorls_CheckedChanged);
 			// 
 			// cmShowConsole
 			// 
@@ -249,11 +251,21 @@
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
 			// 
+			// axWindowsMediaPlayer
+			// 
+			this.axWindowsMediaPlayer.Enabled = true;
+			this.axWindowsMediaPlayer.Location = new System.Drawing.Point(12, 75);
+			this.axWindowsMediaPlayer.Name = "axWindowsMediaPlayer";
+			this.axWindowsMediaPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer.OcxState")));
+			this.axWindowsMediaPlayer.Size = new System.Drawing.Size(262, 47);
+			this.axWindowsMediaPlayer.TabIndex = 4;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(290, 345);
+			this.Controls.Add(this.axWindowsMediaPlayer);
 			this.Controls.Add(this.cbShowWeekDay);
 			this.Controls.Add(this.btnHideControls);
 			this.Controls.Add(this.cbShowDate);
@@ -265,6 +277,7 @@
 			this.Text = "ClockPV_319 ";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			this.contextMenu.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -295,6 +308,7 @@
 		private System.Windows.Forms.ToolStripMenuItem cmLoadOnWinStartup;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
 		private System.Windows.Forms.ToolStripMenuItem cmAlarms;
+		private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer;
 	}
 }
 

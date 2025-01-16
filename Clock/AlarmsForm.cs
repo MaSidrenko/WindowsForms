@@ -39,6 +39,7 @@ namespace Clock
 
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
+			addAlarmDialog = new AddAlarmForm();
 			addAlarmDialog.StartPosition = FormStartPosition.Manual;
 			addAlarmDialog.Location = new Point
 			(
@@ -51,31 +52,6 @@ namespace Clock
 				lbAlarms.Items.Add(new Alarm(addAlarmDialog.Alarm));
 			}
 		}
-
-		private void Alarms_Tick(object sender, EventArgs e)
-		{
-
-			//if (lbAlarms.Items.Count != 0)
-			//{
-			//	lbAlarms.SetSelected(0, true);
-			//	string[] alarms = lbAlarms.SelectedItem.ToString().Split('\t');
-			//	if (DateTime.Now.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture) == alarms[0] && formatInfo.GetShortestDayName(DateTime.Now.DayOfWeek) == alarms[1])
-			//	{
-			//		audio = new Audio(alarms[2]);
-			//		audio.Play();
-			//		MessageBox.Show
-			//			(
-			//			this,
-			//			alarms[3] != null ? alarms[3] : "Алярм!",
-			//			"Warning",
-			//			MessageBoxButtons.OK,
-			//			MessageBoxIcon.Warning
-			//			);
-			//		lbAlarms.Items.RemoveAt(0);
-			//	}
-			//}
-		}
-
 		private void lbAlarms_DoubleClick(object sender, EventArgs e)
 		{
 			if (lbAlarms.Items.Count > 0)

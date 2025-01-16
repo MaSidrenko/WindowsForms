@@ -73,5 +73,6 @@ namespace Clock
 		{
 			cbFonts_SelectedIndexChanged(sender, e);
 		}
+	
 	}
 }

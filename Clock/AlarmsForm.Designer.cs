@@ -81,7 +81,6 @@
 			// 
 			this.Alarms.Enabled = true;
 			this.Alarms.Interval = 1000;
-			this.Alarms.Tick += new System.EventHandler(this.Alarms_Tick);
 			// 
 			// AlarmsForm
 			// 

@@ -53,6 +53,19 @@ namespace Clock
 			info += Msg + "\t";
 			return info;
 		}
+		public static bool operator ==(Alarm left, Alarm right)
+		{
+			return
+				left.Date == right.Date &&
+				left.Time == right.Time &&
+				left.Weekdays == right.Weekdays &&
+				left.Filename == right.Filename &&
+				left.Msg == right.Msg;
+		}
+		public static bool operator !=(Alarm left, Alarm right)
+		{
+			return !(left == right);
+		}
 		public int CompareTo(Alarm other)
 		{
 			return this.Time.CompareTo(other.Time);

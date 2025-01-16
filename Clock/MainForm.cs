@@ -38,6 +38,9 @@ namespace Clock
 			LoadSettings();
 			//fontDialog = new ChooseFontForm();
 			alarmsDialog = new AlarmsForm();
+			axWindowsMediaPlayer.Visible = false;
+			int[] ints = new int[alarmsDialog.lb_Alarms.Items.Count];
+			Console.WriteLine(ints.Length);
 		}
 		void SetVisibility(bool visible)
 		{
@@ -47,6 +50,20 @@ namespace Clock
 			this.TransparencyKey = visible ? Color.Empty : this.BackColor;
 			this.FormBorderStyle = visible ? FormBorderStyle.FixedToolWindow : FormBorderStyle.None;
 			this.ShowInTaskbar = visible;
+		}
+		void SaveAlarms()
+		{
+			StreamWriter sw = new StreamWriter("Alarms.txt");
+			for (int i = 0; i < alarmsDialog.lb_Alarms.Items.Count; i++)
+			{
+				sw.WriteLine(nextAlarm.Time);
+				sw.WriteLine(nextAlarm.Weekdays);
+				sw.WriteLine(nextAlarm.Date);
+				sw.WriteLine(nextAlarm.Filename);
+				sw.WriteLine(nextAlarm.Msg);
+			}
+			sw.Close();
+			Process.Start("notepad", "Alarms.txt");
 		}
 		void SaveSettings()
 		{
@@ -82,10 +99,35 @@ namespace Clock
 			fontDialog = new ChooseFontForm(this, Font_Name, Font_Size);
 			labelTime.Font = fontDialog.Font;
 		}
+		void LoadAlarms()
+		{
+			string execution_path = Path.GetDirectoryName(Application.ExecutablePath);
+			Directory.SetCurrentDirectory(execution_path + "\\..\\..\\Font");
+			StreamReader sr = new StreamReader("Alarms.txt");
+			for (int i = 0; i < alarmsDialog.lb_Alarms.Items.Count; i++)
+			{
+				nextAlarm.Time = TimeSpan.Parse(sr.ReadLine());
+				//nextAlarm.Weekdays = sr.ReadLine();  
+				nextAlarm.Date = DateTime.Parse(sr.ReadLine());
+				nextAlarm.Filename = sr.ReadLine();
+				nextAlarm.Msg = sr.ReadLine();
+			}
+		}
 		Alarm FindNextAlarm()
 		{
 			Alarm[] actualAlarms = alarmsDialog.lb_Alarms.Items.Cast<Alarm>().Where(a => a.Time > DateTime.Now.TimeOfDay).ToArray();
 			return actualAlarms.Min();
+		}
+		bool CompareDates(DateTime date1, DateTime date2)
+		{
+			return date1.Year == date2.Year && date1.Month == date2.Month && date1.Day == date2.Day;
+		}
+		void PlayAlarm()
+		{
+			axWindowsMediaPlayer.URL = nextAlarm.Filename;
+			axWindowsMediaPlayer.settings.volume = 100;
+			axWindowsMediaPlayer.Ctlcontrols.play();
+			axWindowsMediaPlayer.Visible = true;
 		}
 		private void timer_Tick(object sender, EventArgs e)
 		{
@@ -104,21 +146,29 @@ namespace Clock
 
 			if
 				(
-					nextAlarm != null &&
+					(object)nextAlarm != null &&
+					(
+						nextAlarm.Date == DateTime.MinValue ?
+						nextAlarm.Weekdays.Contains(DateTime.Now.DayOfWeek) :
+						CompareDates(nextAlarm.Date, DateTime.Now)
+					) &&
 					nextAlarm.Time.Hours == DateTime.Now.Hour &&
 					nextAlarm.Time.Minutes == DateTime.Now.Minute &&
 					nextAlarm.Time.Seconds == DateTime.Now.Second
 				)
 			{
+
 				System.Threading.Thread.Sleep(1000);
-				MessageBox.Show(this, nextAlarm.ToString(), "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				PlayAlarm();
+				//MessageBox.Show(this, nextAlarm.ToString(), "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 
 			if (DateTime.Now.Second % 10 == 0 && alarmsDialog.lb_Alarms.Items.Count > 0)
 			{
 				nextAlarm = FindNextAlarm();
+				//Console.WriteLine(nextAlarm.Filename);
 			}
-			if (nextAlarm != null) Console.WriteLine(nextAlarm);
+			if ((object)nextAlarm != null) Console.WriteLine(nextAlarm);
 		}
 		private void btnHideControls_Click(object sender, EventArgs e)
 		{
@@ -210,6 +260,7 @@ namespace Clock
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			SaveSettings();
+			SaveAlarms();
 		}
 
 		private void cmLoadOnWinStartup_CheckedChanged(object sender, EventArgs e)

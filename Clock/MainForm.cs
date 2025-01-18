@@ -107,7 +107,7 @@ namespace Clock
 			for (int i = 0; i < alarmsDialog.lb_Alarms.Items.Count; i++)
 			{
 				nextAlarm.Time = TimeSpan.Parse(sr.ReadLine());
-				//nextAlarm.Weekdays = sr.ReadLine();  
+				nextAlarm.Weekdays = sr.ReadLine();
 				nextAlarm.Date = DateTime.Parse(sr.ReadLine());
 				nextAlarm.Filename = sr.ReadLine();
 				nextAlarm.Msg = sr.ReadLine();

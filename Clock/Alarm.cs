@@ -53,6 +53,19 @@ namespace Clock
 			info += Msg + "\t";
 			return info;
 		}
+		public string ToFileString()
+		{
+			string info = "";
+			if (Date != DateTime.MinValue)
+			{
+				info += Date.Ticks;
+			}
+			info += "," + Time.Ticks + ","/*ToString("hh:mm:ss tt")*/;
+			info += Weekdays.ToFileString() + ",";
+			info += Filename + ",";
+			info += Msg + ",";
+			return info;
+		}
 		public static bool operator ==(Alarm left, Alarm right)
 		{
 			return

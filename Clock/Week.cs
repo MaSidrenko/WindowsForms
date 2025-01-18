@@ -17,9 +17,9 @@ namespace Clock
 			"Mo","Tu","We","Th","Fr","Sa","Su",
 		};
 		byte week;
-		public Week()
+		public Week(byte week = 127)
 		{
-			week = 127;
+			this.week = week;
 		}
 		public Week(bool[] days)
 		{
@@ -60,6 +60,10 @@ namespace Clock
 					weekdays += WeekDays[i] + ",";
 			}
 			return weekdays;
+		}
+		public string ToFileString()
+		{
+			return week.ToString();
 		}
 	}
 }

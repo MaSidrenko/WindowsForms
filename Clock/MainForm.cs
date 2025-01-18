@@ -24,11 +24,9 @@ namespace Clock
 		Alarm nextAlarm = null;
 		public MainForm()
 		{
-			//System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("fr");
 			InitializeComponent();
 			labelTime.BackColor = Color.Black;
 			labelTime.ForeColor = Color.DarkGreen;
-
 
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
 
@@ -36,11 +34,9 @@ namespace Clock
 			cmShowConsole.Checked = true;
 			cmTopmost.Checked = true;
 			LoadSettings();
-			//fontDialog = new ChooseFontForm();
 			alarmsDialog = new AlarmsForm();
+			LoadAlarms();
 			axWindowsMediaPlayer.Visible = false;
-			int[] ints = new int[alarmsDialog.lb_Alarms.Items.Count];
-			Console.WriteLine(ints.Length);
 		}
 		void SetVisibility(bool visible)
 		{
@@ -53,17 +49,16 @@ namespace Clock
 		}
 		void SaveAlarms()
 		{
-			StreamWriter sw = new StreamWriter("Alarms.txt");
+			string execution_path = Path.GetDirectoryName(Application.ExecutablePath);
+			string file_name = execution_path + "\\..\\..\\Fonts\\Alarms.ini";
+			StreamWriter sw = new StreamWriter(file_name);
 			for (int i = 0; i < alarmsDialog.lb_Alarms.Items.Count; i++)
 			{
-				sw.WriteLine(nextAlarm.Time);
-				sw.WriteLine(nextAlarm.Weekdays);
-				sw.WriteLine(nextAlarm.Date);
-				sw.WriteLine(nextAlarm.Filename);
-				sw.WriteLine(nextAlarm.Msg);
+				sw.WriteLine((alarmsDialog.lb_Alarms.Items[i] as Alarm).ToFileString());
+
 			}
 			sw.Close();
-			Process.Start("notepad", "Alarms.txt");
+			//Process.Start("notepad", "Alarms.ini");
 		}
 		void SaveSettings()
 		{
@@ -78,13 +73,12 @@ namespace Clock
 			sw.WriteLine(fontDialog.File_Name);
 			sw.WriteLine(labelTime.Font.Size);
 			sw.Close();
-			//Process.Start("notepad", "Settings.ini");
 		}
 		void LoadSettings()
 		{
 
 			string execution_path = Path.GetDirectoryName(Application.ExecutablePath);
-			Directory.SetCurrentDirectory(execution_path + "\\..\\..\\Font");
+			Directory.SetCurrentDirectory(execution_path + "\\..\\..\\Fonts");
 			StreamReader sr = new StreamReader("Settings.ini");
 			cmTopmost.Checked = bool.Parse(sr.ReadLine());
 			cmShowContorls.Checked = bool.Parse(sr.ReadLine());
@@ -102,15 +96,34 @@ namespace Clock
 		void LoadAlarms()
 		{
 			string execution_path = Path.GetDirectoryName(Application.ExecutablePath);
-			Directory.SetCurrentDirectory(execution_path + "\\..\\..\\Font");
-			StreamReader sr = new StreamReader("Alarms.txt");
-			for (int i = 0; i < alarmsDialog.lb_Alarms.Items.Count; i++)
+			string file_name = execution_path + "\\..\\..\\Fonts\\Alarms.ini";
+			try
 			{
-				nextAlarm.Time = TimeSpan.Parse(sr.ReadLine());
-				nextAlarm.Weekdays = sr.ReadLine();
-				nextAlarm.Date = DateTime.Parse(sr.ReadLine());
-				nextAlarm.Filename = sr.ReadLine();
-				nextAlarm.Msg = sr.ReadLine();
+				StreamReader sr = new StreamReader(file_name);
+				while (!sr.EndOfStream)
+				{
+					string s_alarm = sr.ReadLine();
+					string[] s_alarm_parts = s_alarm.Split(',');
+					for (int i = 0; i < s_alarm_parts.Length; i++)
+					{
+						Console.Write(s_alarm_parts[i] + "\t");
+					}
+					Console.WriteLine();
+					Alarm alarm = new Alarm
+						(
+							s_alarm_parts[0] == "" ? new DateTime() : new DateTime(Convert.ToInt64(s_alarm_parts[0])),
+							new TimeSpan(Convert.ToInt64(s_alarm_parts[1])),
+							new Week(Convert.ToByte(s_alarm_parts[2])),
+							s_alarm_parts[3],
+							s_alarm_parts[4]
+						);
+					alarmsDialog.lb_Alarms.Items.Add(alarm);
+				}
+				sr.Close();
+			}
+			catch (Exception)
+			{
+                Console.WriteLine("Error_0: Alarms.ini not found!");
 			}
 		}
 		Alarm FindNextAlarm()
@@ -133,7 +146,7 @@ namespace Clock
 		{
 			if
 				(
-				axWindowsMediaPlayer.playState == WMPLib.WMPPlayState.wmppsMediaEnded || 
+				axWindowsMediaPlayer.playState == WMPLib.WMPPlayState.wmppsMediaEnded ||
 				axWindowsMediaPlayer.playState == WMPLib.WMPPlayState.wmppsStopped
 				)
 			{
@@ -171,10 +184,11 @@ namespace Clock
 
 				System.Threading.Thread.Sleep(1000);
 				PlayAlarm();
-				//MessageBox.Show(this, nextAlarm.ToString(), "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				if(nextAlarm.Msg != "")
+					MessageBox.Show(this, nextAlarm.Msg, nextAlarm.Msg, MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 
-			if (DateTime.Now.Second % 10 == 0 && alarmsDialog.lb_Alarms.Items.Count > 0)
+			if (alarmsDialog.lb_Alarms.Items.Count > 0)
 			{
 				nextAlarm = FindNextAlarm();
 				//Console.WriteLine(nextAlarm.Filename);
